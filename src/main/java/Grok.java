@@ -13,7 +13,7 @@ public class Grok
 
     // instance variables
     private int powerLevel;
-    private boolean isAlive;
+    private boolean isAlive = true;
 
     /*
      * Initializes a Grok object to the default power level of 50.
@@ -30,7 +30,11 @@ public class Grok
      */
     public Grok(int powerLevel)
     {
+
         setPowerLevel(powerLevel);
+
+
+
     }
 
     // accessor methods
@@ -44,9 +48,19 @@ public class Grok
         return powerLevel;
     }
 
-    public boolean isDead()
-    {
-        // TODO: replace this line with your code here
+    public boolean isDead() {
+        if (powerLevel >= MAX_POWER_LEVEL || powerLevel <= 0)  {
+            isAlive = false;
+            return true;
+        }
+         else if (isAlive == false ) {return true;
+
+        } else {return false;
+
+        }
+
+
+
     }
 
     // mutator methods
@@ -56,8 +70,20 @@ public class Grok
      * @param powerLevel the power value to set for this Grok.
      */
     public void setPowerLevel(int powerLevel)
-    {
-        this.powerLevel = powerLevel;
+    {if (powerLevel <= MAX_POWER_LEVEL & powerLevel >= 0){
+        this.powerLevel = powerLevel;} else if (powerLevel <= 0 ) {isAlive = false;
+        setPowerLevel(0);
+
+    } else {
+        setPowerLevel(100);}
+
+
+
+
+
+
+
+
     }
 
     /*
@@ -66,18 +92,21 @@ public class Grok
      * @param pill The PowerPill that the this Grok.  The power
      * of the pill is added to the power level of this Grok.
      */
-    public void takePowerPill(PowerPill pill)
-    {
-        setPowerLevel(powerLevel + pill.getPower());
-    }
+    public void takePowerPill(PowerPill pill) {
+        if (isAlive == true && pill.getPower() + powerLevel <= MAX_POWER_LEVEL) {
 
-    /*
-     * Invoked when this Grok takes a hit.  The power level of
-     * this Grok is reduced by 5.
-     */
+            setPowerLevel(powerLevel + pill.getPower());
+        } else if (pill.getPower() + powerLevel >= MAX_POWER_LEVEL) {
+            setPowerLevel(100);
+        } else {
+            setPowerLevel(0);
+
+        }
+    }
     public void tookHit()
     {
-        setPowerLevel(powerLevel - 5);
+     setPowerLevel(powerLevel - 5);
+
     }
 
     //================== Do Not Touch Code Below this line =============================
